@@ -1,18 +1,18 @@
 import { Request, Response } from "express"
-import Product from "../models/product"
+import Category from "../models/category"
 
-export const getProducts = async (req: Request, res: Response) => {
+export const getCategories = async (req: Request, res: Response) => {
     try {
-        const products = await Product.find({ isActive: true })
-        res.status(200).json({ data: products })
+        const categories = await Category.find()
+        res.status(200).json({ data: categories })
     } catch (error) {
         res.status(500).json({ message: "Xato yuz berdi" })
     }
 }
 
-export const getProductById = async (req: Request, res: Response) => {
+export const getCategoryById = async (req: Request, res: Response) => {
     try {
-        const product = await Product.findById(req.params.id)
+        const product = await Category.findById(req.params.id)
         if (!product) {
             return res.status(404).json({ message: "Mahsulot topilmadi" })
         }
@@ -22,35 +22,35 @@ export const getProductById = async (req: Request, res: Response) => {
     }
 }
 
-export const updateProduct = async (req: Request, res: Response) => {
+export const updateCategory = async (req: Request, res: Response) => {
     try {
-        const product = await Product.findByIdAndUpdate(
+        const category = await Category.findByIdAndUpdate(
             req.params.id, 
             req.body, 
             { new: true }  // yangilangan versiyani qaytaradi
         )
-        if (!product) {
+        if (!category) {
             return res.status(404).json({ message: "Mahsulot topilmadi" })
         }
-        res.status(200).json({ data: product })
+        res.status(200).json({ data: category })
     } catch (error) {
         res.status(500).json({ message: "Xato yuz berdi" })
     }
 }
 
-export const deleteProduct = async (req: Request, res: Response) => {
+export const deleteCategory = async (req: Request, res: Response) => {
     try {
-        await Product.findByIdAndUpdate(req.params.id, { isActive: false })
+        await Category.findByIdAndDelete(req.params.id)
         res.status(200).json({ message: "Mahsulot o'chirildi" })
     } catch (error) {
         res.status(500).json({ message: "Xato yuz berdi" })
     }
 }
 
-export const createProduct = async (req: Request, res: Response) => {
+export const createCategory = async (req: Request, res: Response) => {
     try {
-        const { name, slug, description, price, stock, brand, category, images, specs } = req.body
-        const product = await Product.create({ name, slug, description, price, stock, brand, category, images, specs })
+        const { name, slug, description, image } = req.body
+        const product = await Category.create({ name, slug, description, image })
         res.status(201).json({ data: product })
     } catch (error) {
         res.status(500).json({ message: "Xato yuz berdi" })

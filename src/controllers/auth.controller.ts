@@ -6,7 +6,7 @@ import { AuthRequest } from "../middleware/auth"
 
 export const register = async (req: Request, res: Response) => {
     try {
-        const { name, email, password } = req.body
+        const { name, email, password, role } = req.body
         // 1. Email bor mi?
         const existingUser = await User.findOne({ email })
         if (existingUser) {
@@ -15,7 +15,7 @@ export const register = async (req: Request, res: Response) => {
   // 2. Parolni hash qil
    const hashedPassword = await bcrypt.hash(password, 10)
  // 3. Userni yarat
- const user = await User.create({ name, email, password: hashedPassword })
+ const user = await User.create({ name, email, password: hashedPassword, role })
 
  const { password: _, ...userWithoutPassword } = user.toObject()
  

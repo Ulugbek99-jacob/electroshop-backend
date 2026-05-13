@@ -23,3 +23,10 @@ export const authenticate = (req: AuthRequest, res: Response, next: NextFunction
         res.status(401).json({ message: "Token yaroqsiz" })
     }
 }
+
+export const requireAdmin = (req: AuthRequest, res: Response, next: NextFunction) => {
+    if (req.user?.role !== "admin") {
+        return res.status(403).json({ message: "Admin huquqi kerak" })
+    }
+    next()
+}
