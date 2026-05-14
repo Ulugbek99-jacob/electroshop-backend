@@ -9,6 +9,8 @@ export interface AuthRequest extends Request {
 }
 
 export const authenticate = (req: AuthRequest, res: Response, next: NextFunction) => {
+    console.log("authenticate called")
+    console.log("header:", req.headers.authorization)
     try {
         const token = req.headers.authorization?.split(" ")[1]
         
