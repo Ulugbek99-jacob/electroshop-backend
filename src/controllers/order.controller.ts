@@ -4,9 +4,6 @@ import { AuthRequest } from "../middleware/auth"
 
 
 export const createOrder = async (req: AuthRequest, res: Response) => {
-    console.log("createOrder called")
-    console.log("body:", req.body)
-    console.log("user:", req.user)
     try {
         const { items, shippingAddress, totalAmount } = req.body
         const userId = req.user!.userId
