@@ -56,3 +56,15 @@ export const createProduct = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Xato yuz berdi" })
     }
 }
+
+export const getProductBySlug = async (req: Request, res: Response) => {
+    try {
+        const product = await Product.findOne({ slug: req.params.slug as string })
+        if (!product) {
+            return res.status(404).json({ message: "Topilmadi" })
+        }
+        res.status(200).json({ data: product })
+    } catch (error) {
+        res.status(500).json({ message: "Xato yuz berdi" })
+    }
+}
