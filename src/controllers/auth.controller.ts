@@ -42,7 +42,14 @@ export const login = async (req: Request, res: Response) => {
             process.env.JWT_SECRET as string,
             { expiresIn: "7d" }
         )
-        res.status(200).json({ message: "Muvaffaqiyatli", token })
+        res.status(200).json({ message: "Muvaffaqiyatli", token, 
+            user: { 
+                _id: existingUser._id,
+                name: existingUser.name,
+                email: existingUser.email,
+                role: existingUser.role
+            }
+         })
     } catch (error) {
         res.status(500).json({ message: "Xato yuz berdi" })
     }
