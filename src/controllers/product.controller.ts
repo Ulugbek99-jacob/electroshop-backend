@@ -68,3 +68,12 @@ export const getProductBySlug = async (req: Request, res: Response) => {
         res.status(500).json({ message: "Xato yuz berdi" })
     }
 }
+
+export const getFeaturedProducts = async (req: Request, res: Response) => {
+    try {
+        const products = await Product.find({ isFeatured: true, isActive: true })
+        res.status(200).json({ data: products })
+    } catch (error) {
+        res.status(500).json({ message: "Xato yuz berdi" })
+    }
+}
