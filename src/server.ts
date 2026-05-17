@@ -1,14 +1,16 @@
+import dotenv from "dotenv";
+dotenv.config();
 import express from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import connectDB from "./config/db";
 import authRoutes from "./routes/auth.routes";
 import productRoutes from "./routes/product.routes";
 import categoryRoutes from "./routes/category.routes";
 import orderRoutes from "./routes/order.routes";
 import reviewRoutes from "./routes/review.routes";
+import uploadRoutes from "./routes/upload.routes";
 
-dotenv.config();
+
 connectDB();
 
 const app = express();
@@ -24,7 +26,7 @@ app.use("/api/products", productRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/reviews", reviewRoutes);
-
+app.use("/api/uploads", uploadRoutes)
 
 const PORT = process.env.PORT || 8000;
 
