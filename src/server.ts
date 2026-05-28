@@ -9,6 +9,7 @@ import categoryRoutes from "./routes/category.routes";
 import orderRoutes from "./routes/order.routes";
 import reviewRoutes from "./routes/review.routes";
 import uploadRoutes from "./routes/upload.routes";
+import aiRoute from "./routes/ai.route";
 
 
 connectDB();
@@ -26,7 +27,8 @@ app.use("/api/products", productRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/reviews", reviewRoutes);
-app.use("/api/uploads", uploadRoutes)
+app.use("/api/uploads", uploadRoutes);
+app.use("/api/ai", aiRoute);
 
 const PORT = process.env.PORT || 8000;
 
